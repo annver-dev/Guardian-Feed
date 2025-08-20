@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:places_search/assets/strings/app_strings.dart';
-import 'package:places_search/features/places/ui/screens/places_screen_builder.dart';
+import 'package:places_search/features/news/ui/screens/news_screen_builder.dart';
 import 'package:places_search/uikit/images/svg_picture_widget.dart';
 
 @RoutePage()

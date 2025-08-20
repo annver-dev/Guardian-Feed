@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places_search/assets/images/app_svg_icons.dart';
 import 'package:places_search/assets/strings/app_strings.dart';
-import 'package:places_search/features/places/domain/enitites/places_state.dart';
-import 'package:places_search/features/places/ui/screens/places_wm.dart';
-import 'package:places_search/features/places/ui/widgets/place_card_widget.dart';
+import 'package:places_search/features/news/domain/enitites/news_state.dart';
+import 'package:places_search/features/news/ui/screens/news_wm.dart';
+import 'package:places_search/features/news/ui/widgets/news_card_widget.dart';
 
 @RoutePage()
 class NewsScreen extends StatelessWidget {
@@ -21,8 +21,8 @@ class NewsScreen extends StatelessWidget {
     final _searchDebouncer = Debouncer(delay: Duration(milliseconds: 500));
     return Scaffold(
       body: ValueListenableBuilder<NewsState>(
-        valueListenable: wm.placesStateListenable,
-        builder: (context, places, _) {
+        valueListenable: wm.newsStateListenable,
+        builder: (context, news, _) {
           return NestedScrollView(
             headerSliverBuilder:
                 (_, __) => [
@@ -68,7 +68,7 @@ class NewsScreen extends StatelessWidget {
                                 // wm.searchPlaces(value);
                               });
                             } else {
-                              wm.loadPlaces();
+                              wm.loadNews();
                             }
                           },
                         ),
@@ -77,8 +77,8 @@ class NewsScreen extends StatelessWidget {
                   ),
                 ],
             body: RefreshIndicator.adaptive(
-              onRefresh: wm.loadPlaces,
-              child: switch (places) {
+              onRefresh: wm.loadNews,
+              child: switch (news) {
                 NewsStateLoading() => Center(
                   child: Text(AppStrings.placesLoading),
                 ),
@@ -95,13 +95,13 @@ class NewsScreen extends StatelessWidget {
                   itemCount: news.items.length,
                   itemBuilder: (context, index) {
                     final newsItem = news.items[index];
-                    // return PlaceCardWidget(
-                    //   place: newsItem,
-                    //   onCardTap:
-                    //       () => wm.onPlacePressed(context, newsItem),
-                    //   onLikeTap: () => wm.onLikePressed(newsItem),
-                    //   isFavorite: newsItem.isFavorite,
-                    // );
+                    return PlaceCardWidget(
+                      newsItemEntity: newsItem,
+                      onCardTap: () => wm.onNewsPressed(context, newsItem),
+
+                      // onLikeTap: () => wm.onLikePressed(newsItem),
+                      // isFavorite: newsItem.isFavorite,
+                    );
                   },
                   separatorBuilder: (_, __) => const SizedBox(height: 24),
                 ),

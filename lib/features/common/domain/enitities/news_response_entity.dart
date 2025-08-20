@@ -1,4 +1,4 @@
-import 'package:places_search/features/news/news_item.dart';
+import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
 
 class NewsResponseEntity {
   final List<NewsItemEntity> items;

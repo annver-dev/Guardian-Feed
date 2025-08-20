@@ -42,4 +42,6 @@ class NewsResponseDto {
 
   factory NewsResponseDto.fromJson(Map<String, dynamic> json) =>
       _$NewsResponseDtoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NewsResponseDtoToJson(this);
 }

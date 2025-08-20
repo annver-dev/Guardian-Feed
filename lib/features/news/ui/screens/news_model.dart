@@ -1,11 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:places_search/core/domain/entities/result/result.dart';
-import 'package:places_search/features/common/domain/enitities/place_entity.dart';
-import 'package:places_search/features/common/domain/repositories/i_favorites_repository.dart';
-import 'package:places_search/features/news/news_item.dart';
-import 'package:places_search/features/places/domain/enitites/liked_place_entity.dart';
-import 'package:places_search/features/places/domain/enitites/places_state.dart';
-import 'package:places_search/features/places/domain/reposiotries/i_places_repository.dart';
+import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
+import 'package:places_search/features/news/domain/enitites/news_state.dart';
+import 'package:places_search/features/news/domain/reposiotries/i_news_repository.dart';
 
 /// Модель для экрана мест.
 class NewsModel implements INewsModel {
@@ -37,7 +34,7 @@ class NewsModel implements INewsModel {
   }
 
   @override
-  Future<void> getPlaces() async {
+  Future<void> getNews() async {
     _placesState.value = const NewsStateLoading();
     final placesResult = await _placesRepository.getNews();
     switch (placesResult) {
@@ -105,5 +102,5 @@ abstract class INewsModel {
   void dispose();
 
   /// Получение списка мест.
-  Future<void> getPlaces();
+  Future<void> getNews();
 }

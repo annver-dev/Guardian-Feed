@@ -3,10 +3,7 @@ import 'package:places_search/core/data/repositories/base_repository.dart';
 import 'package:places_search/core/domain/entities/result/request_operation.dart';
 import 'package:places_search/features/common/data/converters/news_converter.dart';
 import 'package:places_search/features/common/domain/enitities/news_response_entity.dart';
-
-import 'package:places_search/features/common/domain/enitities/place_entity.dart';
-import 'package:places_search/features/news/news_item.dart';
-import 'package:places_search/features/places/domain/reposiotries/i_places_repository.dart';
+import 'package:places_search/features/news/domain/reposiotries/i_news_repository.dart';
 
 /// Реализация [INewsRepository].
 final class NewsRepository extends BaseRepository implements INewsRepository {

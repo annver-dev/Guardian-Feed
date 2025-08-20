@@ -3,19 +3,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:places_search/features/common/domain/enitities/place_entity.dart';
 import 'package:places_search/features/common/domain/repositories/i_favorites_repository.dart';
-import 'package:places_search/features/places/domain/enitites/places_state.dart';
-import 'package:places_search/features/places/ui/screens/places_model.dart';
+import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
+import 'package:places_search/features/news/domain/enitites/news_state.dart';
+import 'package:places_search/features/news/ui/screens/news_model.dart';
 
 /// WM для экрана списка мест.
 abstract class INewsWM {
   /// [ValueListenable] состояния экрана мест.
-  ValueListenable<NewsState> get placesStateListenable;
+  ValueListenable<NewsState> get newsStateListenable;
 
   /// Освобождение ресурсов.
   void dispose();
 
   /// Обработчик нажатия на карточку места.
-  void onPlacePressed(BuildContext context, PlaceEntity place);
+  void onNewsPressed(BuildContext context, NewsItemEntity news);
 
   /// Обработчик нажатия на кнопку "лайк".
   void onLikePressed(PlaceEntity place);
@@ -23,8 +24,7 @@ abstract class INewsWM {
   /// Проверяет, добавлено ли место в избранное.
   // bool isFavorite(PlaceEntity place);
 
-  /// Загрузка списка мест.
-  Future<void> loadPlaces();
+  Future<void> loadNews();
 
   /// Поиск мест.
   // Future<void> searchPlaces(String query);
@@ -37,18 +37,18 @@ class NewsWM implements INewsWM {
 
   /// @nodoc
   NewsWM(this._model) {
-    _model.getPlaces();
+    _model.getNews();
   }
 
   @override
-  ValueListenable<NewsState> get placesStateListenable =>
+  ValueListenable<NewsState> get newsStateListenable =>
       _model.placesStateListenable;
 
   @override
   void dispose() => _model.dispose();
 
   @override
-  void onPlacePressed(BuildContext context, PlaceEntity place) {
+  void onNewsPressed(BuildContext context, NewsItemEntity news) {
     // AutoRouter.of(context).push(PlaceDetailScreenBuilder(place: place));
   }
 
@@ -63,7 +63,7 @@ class NewsWM implements INewsWM {
   // }
 
   @override
-  Future<void> loadPlaces() => _model.getPlaces();
+  Future<void> loadNews() => _model.getNews();
 
   // @override
   // Future<void> searchPlaces(String query) => _model.searchPlaces(query);

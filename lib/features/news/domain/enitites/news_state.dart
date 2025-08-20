@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:places_search/core/domain/entities/failure/failure.dart';
 import 'package:places_search/features/common/domain/enitities/news_response_entity.dart';
-import 'package:places_search/features/places/domain/enitites/liked_place_entity.dart';
 
-/// Состояния экрана мест.
 @immutable
 sealed class NewsState {
   const NewsState();
@@ -34,9 +32,7 @@ final class NewsStateFailure extends NewsState {
 
 /// Состояние с данными.
 final class NewsStateData extends NewsState {
-  /// Список мест.
   final NewsResponseEntity news;
-
   const NewsStateData(this.news);
 
   @override

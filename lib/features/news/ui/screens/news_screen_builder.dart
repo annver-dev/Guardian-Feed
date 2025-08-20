@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places_search/features/common/domain/repositories/i_favorites_repository.dart';
-import 'package:places_search/features/places/ui/places_dependencies.dart';
-import 'package:places_search/features/places/ui/screens/places_model.dart';
-import 'package:places_search/features/places/ui/screens/places_screen.dart';
-import 'package:places_search/features/places/ui/screens/places_wm.dart';
+import 'package:places_search/features/news/ui/news_dependencies.dart';
+import 'package:places_search/features/news/ui/screens/news_model.dart';
+import 'package:places_search/features/news/ui/screens/news_screen.dart';
+import 'package:places_search/features/news/ui/screens/news_wm.dart';
 import 'package:provider/provider.dart';
 
 /// Билдер для экрана списка мест.
