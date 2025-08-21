@@ -3,15 +3,18 @@ abstract class AppStrings {
   /// Онбординг.
   static const onboardingSkipButton = 'Пропустить';
   static const onboardingPage1Title = 'Добро пожаловать\nв Путеводитель';
-  static const onboardingPage1Description = 'Ищи новые локации и сохраняй\nсамые любимые.';
+  static const onboardingPage1Description =
+      'Ищи новые локации и сохраняй\nсамые любимые.';
   static const onboardingPage2Title = 'Построй маршрут\nи отправляйся в путь';
-  static const onboardingPage2Description = 'Достигай цели максимально\nбыстро и комфортно.';
+  static const onboardingPage2Description =
+      'Достигай цели максимально\nбыстро и комфортно.';
   static const onboardingPage3Title = 'Добавляй места,\nкоторые нашёл сам';
-  static const onboardingPage3Description = 'Делись самыми интересными\nи помоги нам стать лучше!';
+  static const onboardingPage3Description =
+      'Делись самыми интересными\nи помоги нам стать лучше!';
   static const onboardingStartButton = 'На старт';
 
   /// Список мест.
-  static const placesScreenAppBarTitle = 'Список мест';
+  static const placesScreenAppBarTitle = 'Последние новости';
   static const placesScreenBottomNavPlaces = 'Места';
   static const placesScreenBottomNavFavorites = 'Избранное';
   static const placesScreenBottomNavSettings = 'Настройки';

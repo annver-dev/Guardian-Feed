@@ -6,7 +6,6 @@ import 'package:places_search/features/news/ui/screens/news_model.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-/// Зависимости для экрана мест.
 abstract class NewsDependencies {
   static List<SingleChildWidget> providers() {
     return [

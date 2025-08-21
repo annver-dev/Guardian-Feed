@@ -11,7 +11,6 @@ import 'package:places_search/features/news/ui/widgets/news_card_widget.dart';
 
 @RoutePage()
 class NewsScreen extends StatelessWidget {
-  /// WM.
   final INewsWM wm;
 
   const NewsScreen({required this.wm, super.key});
@@ -99,8 +98,8 @@ class NewsScreen extends StatelessWidget {
                       newsItemEntity: newsItem,
                       onCardTap: () => wm.onNewsPressed(context, newsItem),
 
-                      // onLikeTap: () => wm.onLikePressed(newsItem),
-                      // isFavorite: newsItem.isFavorite,
+                      onLikeTap: () => wm.onLikePressed(newsItem),
+                      isFavorite: newsItem.isFavorite,
                     );
                   },
                   separatorBuilder: (_, __) => const SizedBox(height: 24),

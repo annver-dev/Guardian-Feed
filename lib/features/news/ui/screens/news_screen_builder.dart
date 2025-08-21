@@ -6,9 +6,8 @@ import 'package:places_search/features/news/ui/screens/news_screen.dart';
 import 'package:places_search/features/news/ui/screens/news_wm.dart';
 import 'package:provider/provider.dart';
 
-/// Билдер для экрана списка мест.
-class PlacesScreenBuilder extends StatelessWidget {
-  const PlacesScreenBuilder({super.key});
+class NewsScreenBuilder extends StatelessWidget {
+  const NewsScreenBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class PlacesScreenBuilder extends StatelessWidget {
           create:
               (context) => NewsWM(
                 context.read<INewsModel>(),
-                // context.read<IFavoritesRepository>(),
+                context.read<IFavoritesRepository>(),
               ),
         ),
       ],

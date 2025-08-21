@@ -16,7 +16,7 @@ class _TabsScreenState extends State<TabsScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const PlacesScreenBuilder(),
+    const NewsScreenBuilder(),
     const Center(child: Text(AppStrings.favoritesStub)),
     const Center(child: Text(AppStrings.settingsStub)),
   ];
