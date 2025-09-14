@@ -1,5 +1,6 @@
 import 'package:places_search/api/service/api_client.dart';
 import 'package:places_search/features/common/data/converters/news_converter.dart';
+import 'package:places_search/features/favorites/domain/i_favorites_repository.dart';
 import 'package:places_search/features/news/data/repositories/news_repository.dart';
 import 'package:places_search/features/news/domain/reposiotries/i_news_repository.dart';
 import 'package:places_search/features/news/ui/screens/news_model.dart';
@@ -24,13 +25,15 @@ abstract class NewsDependencies {
               apiClient: context.read<ApiClient>(),
               newsResponseDtoToEntityConverter:
                   context.read<INewsResponseDtoToEntityConverter>(),
+              newsDtoToEntityConverter:
+                  context.read<INewsDtoToEntityConverter>(),
             ),
       ),
       Provider<INewsModel>(
         create:
             (context) => NewsModel(
               newsRepository: context.read<INewsRepository>(),
-              // favoritesRepository: context.read<IFavoritesRepository>(),
+              favoritesRepository: context.read<IFavoritesRepository>(),
             ),
       ),
     ];

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places_search/features/common/domain/repositories/i_favorites_repository.dart';
+import 'package:places_search/features/favorites/domain/i_favorites_repository.dart';
 import 'package:places_search/features/news/ui/news_dependencies.dart';
 import 'package:places_search/features/news/ui/screens/news_model.dart';
 import 'package:places_search/features/news/ui/screens/news_screen.dart';
