@@ -17,64 +17,12 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _searchDebouncer = Debouncer(delay: Duration(milliseconds: 500));
     return Scaffold(
       body: ValueListenableBuilder<NewsState>(
         valueListenable: wm.newsStateListenable,
         builder: (context, news, _) {
           return NestedScrollView(
-            headerSliverBuilder:
-                (_, __) => [
-                  SliverAppBar(
-                    title: const Text(AppStrings.placesScreenAppBarTitle),
-                    floating: true,
-                    snap: true,
-                    bottom: PreferredSize(
-                      preferredSize: const Size.fromHeight(60),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            hintText: 'Поиск по названию',
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                width: 6,
-                                height: 6,
-                                AppSvgIcons.icSearch,
-                              ),
-                            ),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                width: 6,
-                                height: 6,
-                                AppSvgIcons.icClear,
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              _searchDebouncer.run(() {
-                                // wm.searchPlaces(value);
-                              });
-                            } else {
-                              wm.loadNews();
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+            headerSliverBuilder: (_, __) => [SearchNewsWidget(wm: wm)],
             body: RefreshIndicator.adaptive(
               onRefresh: wm.loadNews,
               child: switch (news) {
@@ -113,18 +61,56 @@ class NewsScreen extends StatelessWidget {
   }
 }
 
-class Debouncer {
-  final Duration delay;
-  Timer? _timer;
+class SearchNewsWidget extends StatelessWidget {
+  const SearchNewsWidget({super.key, required this.wm});
 
-  Debouncer({required this.delay});
+  final INewsWM wm;
 
-  void run(VoidCallback action) {
-    _timer?.cancel();
-    _timer = Timer(delay, action);
-  }
-
-  void dispose() {
-    _timer?.cancel();
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      title: const Text(AppStrings.placesScreenAppBarTitle),
+      floating: true,
+      snap: true,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: TextField(
+            decoration: InputDecoration(
+              filled: true,
+              hintText: 'Поиск по названию',
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SvgPicture.asset(
+                  width: 6,
+                  height: 6,
+                  AppSvgIcons.icSearch,
+                ),
+              ),
+              suffixIcon: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SvgPicture.asset(
+                  width: 6,
+                  height: 6,
+                  AppSvgIcons.icClear,
+                ),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                wm.searchNews(value);
+              } else {
+                wm.loadNews();
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
