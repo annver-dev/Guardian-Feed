@@ -40,11 +40,13 @@ class NewsModel implements INewsModel {
   }
 
   @override
-  Future<void> getNews() async {
+  Future<void> getNews({bool forceRefresh = false}) async {
     _newsState.value = const NewsStateLoading();
     _currentSearchQuery = null;
-    
-    final newsResult = await _newsRepository.getNews();
+
+    final newsResult = await _newsRepository.getNews(
+      forceRefresh: forceRefresh,
+    );
     switch (newsResult) {
       case ResultOk(:final data):
         _cachedRemoteNews = data.items;
@@ -59,33 +61,38 @@ class NewsModel implements INewsModel {
   Future<void> searchNews(String query) async {
     _newsState.value = const NewsStateLoading();
     _currentSearchQuery = query;
-    
+
     if (query.isEmpty) {
-      // Если запрос пустой, показываем все новости
       await getNews();
       return;
     }
-    
+
     if (query.length < 3) {
       // Слишком короткий запрос - показываем пустой результат
-      _newsState.value = NewsStateData(NewsResponseEntity(items: [], totalResults: 0));
+      _newsState.value = NewsStateData(
+        NewsResponseEntity(items: [], totalResults: 0),
+      );
       return;
     }
 
     // Поиск среди кешированных новостей
     final cached = _cachedRemoteNews;
     if (cached != null) {
-      final filtered = cached.where((news) {
-        return news.title.toLowerCase().contains(query.toLowerCase()) ||
-               (news.fields?.body?.toLowerCase().contains(query.toLowerCase()) ?? false);
-      }).toList();
-      
+      final filtered =
+          cached.where((news) {
+            return news.title.toLowerCase().contains(query.toLowerCase()) ||
+                (news.fields?.body?.toLowerCase().contains(
+                      query.toLowerCase(),
+                    ) ??
+                    false);
+          }).toList();
+
       _updateNewsWithFavorites(filtered);
     } else {
       // Если кеша нет, загружаем новости и затем фильтруем
       await getNews();
       if (_cachedRemoteNews != null) {
-        await searchNews(query); // Рекурсивно вызываем поиск
+        await searchNews(query);
       }
     }
   }
@@ -99,27 +106,29 @@ class NewsModel implements INewsModel {
     if (remote == null) return;
 
     List<NewsItemEntity> newsToShow = remote;
-    
+
     // Если есть активный поиск, фильтруем результаты
     if (_currentSearchQuery != null && _currentSearchQuery!.isNotEmpty) {
-      newsToShow = remote.where((news) {
-        final query = _currentSearchQuery!.toLowerCase();
-        return news.title.toLowerCase().contains(query) ||
-               (news.fields?.body?.toLowerCase().contains(query) ?? false);
-      }).toList();
+      newsToShow =
+          remote.where((news) {
+            final query = _currentSearchQuery!.toLowerCase();
+            return news.title.toLowerCase().contains(query) ||
+                (news.fields?.body?.toLowerCase().contains(query) ?? false);
+          }).toList();
     }
-    
+
     _updateNewsWithFavorites(newsToShow);
   }
-  
+
   void _updateNewsWithFavorites(List<NewsItemEntity> newsList) {
     final favorites = _favoritesRepository.favoritesListenable.value;
-    
+
     // Обновляем статус избранного для каждой новости
-    final updatedNews = newsList.map((news) {
-      final isFavorite = favorites.any((f) => f.id == news.id);
-      return news.copyWith(isFavorite: isFavorite);
-    }).toList();
+    final updatedNews =
+        newsList.map((news) {
+          final isFavorite = favorites.any((f) => f.id == news.id);
+          return news.copyWith(isFavorite: isFavorite);
+        }).toList();
 
     final newsResponse = NewsResponseEntity(
       items: updatedNews,
@@ -141,8 +150,8 @@ abstract class INewsModel {
   void dispose();
 
   /// Получение списка новостей.
-  Future<void> getNews();
-  
+  Future<void> getNews({bool forceRefresh = false});
+
   /// Поиск новостей по запросу.
   Future<void> searchNews(String query);
 }

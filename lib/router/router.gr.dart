@@ -11,6 +11,22 @@
 part of 'router.dart';
 
 /// generated route for
+/// [FavoritesScreenBuilder]
+class FavoritesRouteBuilder extends PageRouteInfo<void> {
+  const FavoritesRouteBuilder({List<PageRouteInfo>? children})
+    : super(FavoritesRouteBuilder.name, initialChildren: children);
+
+  static const String name = 'FavoritesRouteBuilder';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FavoritesScreenBuilder();
+    },
+  );
+}
+
+/// generated route for
 /// [NewsDetailScreenBuilder]
 class NewsDetailRouteBuilder extends PageRouteInfo<NewsDetailRouteBuilderArgs> {
   NewsDetailRouteBuilder({

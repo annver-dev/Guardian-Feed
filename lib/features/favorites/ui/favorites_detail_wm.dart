@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:places_search/features/favorites/domain/i_favorites_repository.dart';
 import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
 
-abstract class INewsDetailWM {
+abstract class IFavoritesDetailWM {
   /// Освобождение ресурсов.
   void dispose();
 
@@ -17,16 +17,17 @@ abstract class INewsDetailWM {
 }
 
 /// Реализация WM для экрана детали новости.
-class NewsDetailWM implements INewsDetailWM {
+class FavoritesDetailWM implements IFavoritesDetailWM {
   final IFavoritesRepository _favoritesRepository;
 
   /// Конструктор NewsDetailWM.
-  NewsDetailWM(this._favoritesRepository);
+  FavoritesDetailWM(this._favoritesRepository) {
+    // Загружаем избранные новости при создании WM
+    _favoritesRepository.fetchFavorites();
+  }
 
   @override
-  void dispose() {
-    // Освобождение ресурсов если необходимо
-  }
+  void dispose() {}
 
   @override
   void onLikePressed(NewsItemEntity news) {

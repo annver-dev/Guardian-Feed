@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:places_search/api/service/api_client.dart';
 import 'package:places_search/api/service/api_key_interceptor.dart';
+import 'package:places_search/core/db/database.dart';
 import 'package:places_search/features/favorites/data/favorites_repository.dart';
 import 'package:places_search/features/favorites/domain/i_favorites_repository.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +21,11 @@ abstract class AppDependencies {
       ..sendTimeout = timeout;
 
     final apiClient = ApiClient(dio);
+    final database = AppDatabase.instance;
+
     return [
       Provider<ApiClient>(create: (_) => apiClient),
-      Provider<IFavoritesRepository>(create: (_) => FavoritesRepository()),
+      Provider<AppDatabase>(create: (_) => database),
     ];
   }
 }

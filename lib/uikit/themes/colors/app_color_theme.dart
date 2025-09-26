@@ -40,6 +40,13 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
   final Color textSecondary;
   final Color textSecondaryVariant;
 
+  final Color newsHeaderDark;
+  final Color newsHeaderLight;
+  final Color newsUrgent;
+  final Color newsCardBackground;
+  final Color newsText;
+  final Color newsSubtext;
+
   const AppColorTheme._({
     required this.scaffold,
     required this.background,
@@ -57,9 +64,14 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
     required this.textSecondary,
     required this.textSecondaryVariant,
     required this.textInactive,
+    required this.newsHeaderDark,
+    required this.newsHeaderLight,
+    required this.newsUrgent,
+    required this.newsCardBackground,
+    required this.newsText,
+    required this.newsSubtext,
   });
 
-  /// Base dark theme version.
   const AppColorTheme.dark()
     : scaffold = AppColors.colorBlackMain,
       background = AppColors.colorBackground,
@@ -76,9 +88,14 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
       textPrimary = AppColors.colorWhite,
       textSecondary = AppColors.colorWhite,
       textSecondaryVariant = AppColors.colorSecondary2,
-      textInactive = AppColors.colorInactiveBlack;
+      textInactive = AppColors.colorInactiveBlack,
+      newsHeaderDark = AppColors.colorNewsHeaderDark,
+      newsHeaderLight = AppColors.colorNewsHeaderLight,
+      newsUrgent = AppColors.colorNewsUrgent,
+      newsCardBackground = AppColors.colorNewsCardBackground,
+      newsText = AppColors.colorNewsText,
+      newsSubtext = AppColors.colorNewsSubtext;
 
-  /// Base light theme version.
   const AppColorTheme.light()
     : scaffold = AppColors.colorWhite,
       background = AppColors.colorBackground,
@@ -95,7 +112,13 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
       textPrimary = AppColors.colorWhiteMain,
       textSecondary = AppColors.colorSecondary,
       textSecondaryVariant = AppColors.colorSecondary2,
-      textInactive = AppColors.colorInactiveBlack;
+      textInactive = AppColors.colorInactiveBlack,
+      newsHeaderDark = AppColors.colorNewsHeaderDark,
+      newsHeaderLight = AppColors.colorNewsHeaderLight,
+      newsUrgent = AppColors.colorNewsUrgent,
+      newsCardBackground = AppColors.colorNewsCardBackground,
+      newsText = AppColors.colorNewsText,
+      newsSubtext = AppColors.colorNewsSubtext;
 
   @override
   ThemeExtension<AppColorTheme> copyWith({
@@ -115,6 +138,12 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
     Color? textSecondary,
     Color? textSecondaryVariant,
     Color? textInactive,
+    Color? newsHeaderDark,
+    Color? newsHeaderLight,
+    Color? newsUrgent,
+    Color? newsCardBackground,
+    Color? newsText,
+    Color? newsSubtext,
   }) {
     return AppColorTheme._(
       scaffold: scaffold ?? this.scaffold,
@@ -133,6 +162,12 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
       textSecondary: textSecondary ?? this.textSecondary,
       textSecondaryVariant: textSecondaryVariant ?? this.textSecondaryVariant,
       textInactive: textInactive ?? this.textInactive,
+      newsHeaderDark: newsHeaderDark ?? this.newsHeaderDark,
+      newsHeaderLight: newsHeaderLight ?? this.newsHeaderLight,
+      newsUrgent: newsUrgent ?? this.newsUrgent,
+      newsCardBackground: newsCardBackground ?? this.newsCardBackground,
+      newsText: newsText ?? this.newsText,
+      newsSubtext: newsSubtext ?? this.newsSubtext,
     );
   }
 
@@ -164,6 +199,13 @@ class AppColorTheme extends ThemeExtension<AppColorTheme> {
       textSecondaryVariant:
           Color.lerp(textSecondaryVariant, other.textSecondaryVariant, t)!,
       textInactive: Color.lerp(textInactive, other.textInactive, t)!,
+      newsHeaderDark: Color.lerp(newsHeaderDark, other.newsHeaderDark, t)!,
+      newsHeaderLight: Color.lerp(newsHeaderLight, other.newsHeaderLight, t)!,
+      newsUrgent: Color.lerp(newsUrgent, other.newsUrgent, t)!,
+      newsCardBackground:
+          Color.lerp(newsCardBackground, other.newsCardBackground, t)!,
+      newsText: Color.lerp(newsText, other.newsText, t)!,
+      newsSubtext: Color.lerp(newsSubtext, other.newsSubtext, t)!,
     );
   }
 }
