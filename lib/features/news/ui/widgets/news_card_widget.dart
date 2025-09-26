@@ -38,99 +38,146 @@ class PlaceCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _cardHeight = MediaQuery.of(context).size.height * 0.25;
-    var _imageHeight = _cardHeight * 0.45;
+    var cardHeight = MediaQuery.of(context).size.height * 0.25;
+    var imageHeight = cardHeight * 0.45;
     final colorTheme = AppColorTheme.of(context);
     final textTheme = AppTextTheme.of(context);
 
-    return SizedBox(
-      height: _cardHeight,
+    return Container(
+      height: cardHeight,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Material(
-        color: colorTheme.surface,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        color: colorTheme.newsCardBackground,
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
         clipBehavior: Clip.antiAlias,
+        elevation: 2,
+
         child: Stack(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
+                SizedBox(
+                  height: imageHeight,
                   width: double.infinity,
-                  height: _imageHeight,
-                  decoration: BoxDecoration(
+                  child: ClipRRect(
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(12),
                     ),
+                    child:
+                        (newsItemEntity.fields?.thumbnail != null &&
+                                newsItemEntity.fields!.thumbnail!.isNotEmpty)
+                            ? Image.network(
+                              newsItemEntity.fields!.thumbnail!,
+                              fit: BoxFit.cover,
+                              errorBuilder:
+                                  (_, __, ___) => Container(
+                                    color: colorTheme.surface,
+                                    child: const Center(
+                                      child: Icon(Icons.image_not_supported),
+                                    ),
+                                  ),
+                            )
+                            : Container(
+                              color: colorTheme.surface,
+                              child: const Center(
+                                child: Icon(Icons.image_not_supported),
+                              ),
+                            ),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: _imageHeight,
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            newsItemEntity.fields!.thumbnail!,
-                            fit: BoxFit.cover,
-                            errorBuilder:
-                                (_, __, ___) => Container(
-                                  color: colorTheme.surface,
-                                  child: const Center(
-                                    child: Icon(Icons.image_not_supported),
-                                  ),
-                                ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                ),
+                // Content section
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Section badge with urgent indicator
+                        Row(
                           children: [
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Container(
+                            if (newsItemEntity.sectionName
+                                    .toLowerCase()
+                                    .contains('политика') ||
+                                newsItemEntity.sectionName
+                                    .toLowerCase()
+                                    .contains('важно'))
+                              Container(
                                 decoration: BoxDecoration(
-                                  color: colorTheme.inactive,
-                                  borderRadius: BorderRadius.circular(15),
+                                  color: colorTheme.newsUrgent,
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  child: Text(
-                                    newsItemEntity.sectionName,
-                                    style: textTheme.smallBold,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                margin: const EdgeInsets.only(right: 8),
+                                child: Text(
+                                  'СРОЧНО',
+                                  style: textTheme.smallBold.copyWith(
+                                    color: colorTheme.neutralWhite,
+                                    fontSize: 10,
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              newsItemEntity.title,
-                              style: textTheme.textMedium,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.watch_later,
-
+                            Container(
+                              decoration: BoxDecoration(
+                                color: colorTheme.inactive,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
                                   color: colorTheme.inactive,
+                                  width: 1,
                                 ),
-                                SizedBox(width: 6),
-                                Text(
-                                  style: textTheme.small,
-                                  _formatDate(newsItemEntity.publicationDate),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              child: Text(
+                                newsItemEntity.sectionName,
+                                style: textTheme.smallBold.copyWith(
+                                  color: colorTheme.textSecondary,
+                                  fontSize: 11,
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 4),
+                        Expanded(
+                          child: Text(
+                            newsItemEntity.title,
+                            style: textTheme.textMedium.copyWith(
+                              color: colorTheme.newsText,
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              size: 14,
+                              color: colorTheme.newsSubtext,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              _formatDate(newsItemEntity.publicationDate),
+                              style: textTheme.small.copyWith(
+                                color: colorTheme.newsSubtext,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -142,16 +189,32 @@ class PlaceCardWidget extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 8,
-              right: 16,
+              top: 12,
+              right: 12,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-
                 onTap: onLikeTap,
-                child: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color:
-                      isFavorite ? colorTheme.error : colorTheme.neutralWhite,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color:
+                        isFavorite
+                            ? colorTheme.newsUrgent
+                            : colorTheme.inactive,
+                    size: 18,
+                  ),
                 ),
               ),
             ),

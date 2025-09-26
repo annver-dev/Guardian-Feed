@@ -3,7 +3,7 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $NewsTable extends News with TableInfo<$NewsTable, New> {
+class $NewsTable extends News with TableInfo<$NewsTable, NewsItemDb> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -220,7 +220,7 @@ class $NewsTable extends News with TableInfo<$NewsTable, New> {
   static const String $name = 'news';
   @override
   VerificationContext validateIntegrity(
-    Insertable<New> instance, {
+    Insertable<NewsItemDb> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -358,9 +358,9 @@ class $NewsTable extends News with TableInfo<$NewsTable, New> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  New map(Map<String, dynamic> data, {String? tablePrefix}) {
+  NewsItemDb map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return New(
+    return NewsItemDb(
       id:
           attachedDatabase.typeMapping.read(
             DriftSqlType.int,
@@ -452,7 +452,7 @@ class $NewsTable extends News with TableInfo<$NewsTable, New> {
   }
 }
 
-class New extends DataClass implements Insertable<New> {
+class NewsItemDb extends DataClass implements Insertable<NewsItemDb> {
   final int id;
   final String newsId;
   final String type;
@@ -470,7 +470,7 @@ class New extends DataClass implements Insertable<New> {
   final String? author;
   final bool isFavorite;
   final DateTime dateAdded;
-  const New({
+  const NewsItemDb({
     required this.id,
     required this.newsId,
     required this.type,
@@ -544,12 +544,12 @@ class New extends DataClass implements Insertable<New> {
     );
   }
 
-  factory New.fromJson(
+  factory NewsItemDb.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return New(
+    return NewsItemDb(
       id: serializer.fromJson<int>(json['id']),
       newsId: serializer.fromJson<String>(json['newsId']),
       type: serializer.fromJson<String>(json['type']),
@@ -593,7 +593,7 @@ class New extends DataClass implements Insertable<New> {
     };
   }
 
-  New copyWith({
+  NewsItemDb copyWith({
     int? id,
     String? newsId,
     String? type,
@@ -611,7 +611,7 @@ class New extends DataClass implements Insertable<New> {
     Value<String?> author = const Value.absent(),
     bool? isFavorite,
     DateTime? dateAdded,
-  }) => New(
+  }) => NewsItemDb(
     id: id ?? this.id,
     newsId: newsId ?? this.newsId,
     type: type ?? this.type,
@@ -630,8 +630,8 @@ class New extends DataClass implements Insertable<New> {
     isFavorite: isFavorite ?? this.isFavorite,
     dateAdded: dateAdded ?? this.dateAdded,
   );
-  New copyWithCompanion(NewsCompanion data) {
-    return New(
+  NewsItemDb copyWithCompanion(NewsCompanion data) {
+    return NewsItemDb(
       id: data.id.present ? data.id.value : this.id,
       newsId: data.newsId.present ? data.newsId.value : this.newsId,
       type: data.type.present ? data.type.value : this.type,
@@ -660,7 +660,7 @@ class New extends DataClass implements Insertable<New> {
 
   @override
   String toString() {
-    return (StringBuffer('New(')
+    return (StringBuffer('NewsItemDb(')
           ..write('id: $id, ')
           ..write('newsId: $newsId, ')
           ..write('type: $type, ')
@@ -705,7 +705,7 @@ class New extends DataClass implements Insertable<New> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is New &&
+      (other is NewsItemDb &&
           other.id == this.id &&
           other.newsId == this.newsId &&
           other.type == this.type &&
@@ -725,7 +725,7 @@ class New extends DataClass implements Insertable<New> {
           other.dateAdded == this.dateAdded);
 }
 
-class NewsCompanion extends UpdateCompanion<New> {
+class NewsCompanion extends UpdateCompanion<NewsItemDb> {
   final Value<int> id;
   final Value<String> newsId;
   final Value<String> type;
@@ -791,7 +791,7 @@ class NewsCompanion extends UpdateCompanion<New> {
        isHosted = Value(isHosted),
        pillarId = Value(pillarId),
        pillarName = Value(pillarName);
-  static Insertable<New> custom({
+  static Insertable<NewsItemDb> custom({
     Expression<int>? id,
     Expression<String>? newsId,
     Expression<String>? type,
@@ -1267,14 +1267,14 @@ class $$NewsTableTableManager
         RootTableManager<
           _$AppDatabase,
           $NewsTable,
-          New,
+          NewsItemDb,
           $$NewsTableFilterComposer,
           $$NewsTableOrderingComposer,
           $$NewsTableAnnotationComposer,
           $$NewsTableCreateCompanionBuilder,
           $$NewsTableUpdateCompanionBuilder,
-          (New, BaseReferences<_$AppDatabase, $NewsTable, New>),
-          New,
+          (NewsItemDb, BaseReferences<_$AppDatabase, $NewsTable, NewsItemDb>),
+          NewsItemDb,
           PrefetchHooks Function()
         > {
   $$NewsTableTableManager(_$AppDatabase db, $NewsTable table)
@@ -1383,14 +1383,14 @@ typedef $$NewsTableProcessedTableManager =
     ProcessedTableManager<
       _$AppDatabase,
       $NewsTable,
-      New,
+      NewsItemDb,
       $$NewsTableFilterComposer,
       $$NewsTableOrderingComposer,
       $$NewsTableAnnotationComposer,
       $$NewsTableCreateCompanionBuilder,
       $$NewsTableUpdateCompanionBuilder,
-      (New, BaseReferences<_$AppDatabase, $NewsTable, New>),
-      New,
+      (NewsItemDb, BaseReferences<_$AppDatabase, $NewsTable, NewsItemDb>),
+      NewsItemDb,
       PrefetchHooks Function()
     >;
 

@@ -13,11 +13,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: 5.8.0+1
   drift: 2.27.0
-  drift_flutter: 0.2.4
+  drift_sqflite: ^2.0.0
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_svg: 2.2.0
+  flutter_html: ^3.0.0-beta.2
   freezed_annotation: ^2.4.1
   json_annotation: 4.9.0
   path: 1.9.1
@@ -26,7 +27,7 @@ dependencies:
   retrofit: ^4.6.0
   rxdart: 0.28.0
   shared_preferences: ^2.5.3
-  sqlite3_flutter_libs: 0.5.34
+  sqflite: ^2.4.1
   auto_route: ^10.1.0+1
   flutter_bloc: ^9.1.1
   flutter_dotenv: ^5.2.1
@@ -42,6 +43,7 @@ dev_dependencies:
   surf_dcm_presets: 1.0.0
   surf_lint_rules: 4.0.0
   auto_route_generator: ^10.2.3
+  
 
 flutter:
   uses-material-design: true

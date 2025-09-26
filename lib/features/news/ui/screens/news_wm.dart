@@ -11,27 +11,23 @@ abstract class INewsWM {
   /// [ValueListenable] состояния экрана мест.
   ValueListenable<NewsState> get newsStateListenable;
 
-  /// Освобождение ресурсов.
   void dispose();
   void onNewsPressed(BuildContext context, NewsItemEntity news);
-
   void onLikePressed(NewsItemEntity news);
-
   bool isFavorite(NewsItemEntity news);
-
   Future<void> loadNews();
-
   Future<void> searchNews(String query);
 }
 
-/// Реализация WM для экрана списка мест.
 class NewsWM implements INewsWM {
   final INewsModel _model;
   final IFavoritesRepository _favoritesRepository;
 
   /// @nodoc
   NewsWM(this._model, this._favoritesRepository) {
-    _model.getNews();
+    _favoritesRepository.fetchFavorites();
+    // Принудительно загружаем свежие данные с API при первом запуске
+    _model.getNews(forceRefresh: true);
   }
 
   @override
@@ -57,7 +53,7 @@ class NewsWM implements INewsWM {
   }
 
   @override
-  Future<void> loadNews() => _model.getNews();
+  Future<void> loadNews() => _model.getNews(forceRefresh: true);
 
   @override
   Future<void> searchNews(String query) => _model.searchNews(query);
