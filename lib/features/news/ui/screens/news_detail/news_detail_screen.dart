@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
 import 'package:places_search/features/news/ui/screens/news_detail/news_detail_wm.dart';
+import 'package:places_search/uikit/buttons/bookmark_button.dart';
 import 'package:places_search/uikit/themes/colors/app_color_theme.dart';
 import 'package:places_search/uikit/themes/text/app_text_theme.dart';
 
@@ -82,15 +83,13 @@ class NewsDetailScreen extends StatelessWidget {
                       color: colorTheme.neutralWhite,
                       shape: BoxShape.circle,
                     ),
-                    child: IconButton(
-                      icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color:
-                            isFavorite
-                                ? colorTheme.newsUrgent
-                                : colorTheme.neutralWhite,
+                    child: InkWell(
+                      onTap: () => wm.onLikePressed(news),
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: BookmarkButton(isFavorite: isFavorite),
                       ),
-                      onPressed: () => wm.onLikePressed(news),
                     ),
                   );
                 },
@@ -132,7 +131,6 @@ class NewsDetailScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
 
-      
                           Row(
                             children: [
                               Icon(
@@ -176,13 +174,17 @@ class NewsDetailScreen extends StatelessWidget {
                                 "body": Style(
                                   margin: Margins.zero,
                                   padding: HtmlPaddings.zero,
-                                  fontSize: FontSize(textTheme.text.fontSize ?? 16),
+                                  fontSize: FontSize(
+                                    textTheme.text.fontSize ?? 16,
+                                  ),
                                   color: colorTheme.newsText,
                                   lineHeight: const LineHeight(1.6),
                                 ),
                                 "p": Style(
                                   margin: Margins.only(bottom: 12),
-                                  fontSize: FontSize(textTheme.text.fontSize ?? 16),
+                                  fontSize: FontSize(
+                                    textTheme.text.fontSize ?? 16,
+                                  ),
                                   color: colorTheme.newsText,
                                   lineHeight: const LineHeight(1.6),
                                 ),
@@ -190,12 +192,8 @@ class NewsDetailScreen extends StatelessWidget {
                                   color: colorTheme.newsHeaderDark,
                                   textDecoration: TextDecoration.underline,
                                 ),
-                                "strong": Style(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                "em": Style(
-                                  fontStyle: FontStyle.italic,
-                                ),
+                                "strong": Style(fontWeight: FontWeight.bold),
+                                "em": Style(fontStyle: FontStyle.italic),
                                 "h1, h2, h3, h4, h5, h6": Style(
                                   fontWeight: FontWeight.bold,
                                   margin: Margins.only(top: 16, bottom: 8),
@@ -208,7 +206,6 @@ class NewsDetailScreen extends StatelessWidget {
                     ),
                   ),
 
-               
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(

@@ -24,7 +24,7 @@ class FavoritesDataBaseRepository implements IFavoritesDataBaseRepository {
   Future<NewsItemEntity?> getNewsByApiId(String newsApiId) {
     return _database
         .getNewsByApiId(newsApiId)
-        .then((value) => _newsDbToEntityConverter.convert(value));
+        .then((value) => value != null ? _newsDbToEntityConverter.convert(value) : null);
   }
 
   @override

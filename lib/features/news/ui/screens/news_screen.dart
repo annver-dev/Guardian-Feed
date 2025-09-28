@@ -50,11 +50,17 @@ class NewsScreen extends StatelessWidget {
                     NewsStateData(:final news) => SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final newsItem = news.items[index];
-                        return PlaceCardWidget(
-                          newsItemEntity: newsItem,
-                          onCardTap: () => wm.onNewsPressed(context, newsItem),
-                          onLikeTap: () => wm.onLikePressed(newsItem),
-                          isFavorite: newsItem.isFavorite,
+                        return ValueListenableBuilder(
+                          valueListenable: wm.favoritesListenable,
+                          builder: (context, favorites, child) {
+                            final isFavorite = wm.isFavorite(newsItem);
+                            return PlaceCardWidget(
+                              newsItemEntity: newsItem,
+                              onCardTap: () => wm.onNewsPressed(context, newsItem),
+                              onLikeTap: () => wm.onLikePressed(newsItem),
+                              isFavorite: isFavorite,
+                            );
+                          },
                         );
                       }, childCount: news.items.length),
                     ),

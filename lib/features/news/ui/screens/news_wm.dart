@@ -11,6 +11,9 @@ abstract class INewsWM {
   /// [ValueListenable] состояния экрана мест.
   ValueListenable<NewsState> get newsStateListenable;
 
+  /// [ValueListenable] для отслеживания изменений избранного.
+  ValueListenable<List<NewsItemEntity>> get favoritesListenable;
+
   void dispose();
   void onNewsPressed(BuildContext context, NewsItemEntity news);
   void onLikePressed(NewsItemEntity news);
@@ -33,6 +36,10 @@ class NewsWM implements INewsWM {
   @override
   ValueListenable<NewsState> get newsStateListenable =>
       _model.newsStateListenable;
+
+  @override
+  ValueListenable<List<NewsItemEntity>> get favoritesListenable =>
+      _favoritesRepository.favoritesListenable;
 
   @override
   void dispose() => _model.dispose();
