@@ -20,8 +20,9 @@ abstract class INewsDetailWM {
 class NewsDetailWM implements INewsDetailWM {
   final IFavoritesRepository _favoritesRepository;
 
-  /// Конструктор NewsDetailWM.
-  NewsDetailWM(this._favoritesRepository);
+  NewsDetailWM(this._favoritesRepository) {
+    _favoritesRepository.fetchFavorites();
+  }
 
   @override
   void dispose() {}

@@ -33,8 +33,8 @@ class AppDatabase extends _$AppDatabase {
   Future<bool> updateNews(NewsItemDb entry) => update(news).replace(entry);
   Future<int> deleteNews(int id) =>
       (delete(news)..where((tbl) => tbl.id.equals(id))).go();
-  Future<NewsItemDb> getNewsByApiId(String apiId) =>
-      (select(news)..where((tbl) => tbl.newsId.equals(apiId))).getSingle();
+  Future<NewsItemDb?> getNewsByApiId(String apiId) =>
+      (select(news)..where((tbl) => tbl.newsId.equals(apiId))).getSingleOrNull();
   Future<int> toggleFavorite(String apiId, bool isFavorite) => (update(news)
     ..where(
       (tbl) => tbl.newsId.equals(apiId),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:places_search/assets/strings/app_strings.dart';
 import 'package:places_search/features/favorites/ui/favorites_screen_builder.dart';
 import 'package:places_search/features/news/ui/screens/news_screen_builder.dart';
+import 'package:places_search/features/settings/ui/settings_screen_builder.dart';
 import 'package:places_search/uikit/images/svg_picture_widget.dart';
 import 'package:places_search/uikit/themes/colors/app_color_theme.dart';
 
@@ -20,7 +21,7 @@ class _TabsScreenState extends State<TabsScreen> {
   final List<Widget> _pages = [
     const NewsScreenBuilder(),
     const FavoritesScreenBuilder(),
-    const Center(child: Text(AppStrings.settingsStub)),
+    const SettingsScreenBuilder(),
   ];
 
   void _onTabTapped(int index) {
@@ -31,7 +32,6 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorTheme = AppColorTheme.of(context);
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

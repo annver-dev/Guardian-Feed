@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:places_search/features/favorites/domain/i_favorites_repository.dart';
 import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
+import 'package:places_search/router/router.dart';
 
 abstract class IFavoritesDetailWM {
   /// Освобождение ресурсов.
@@ -11,6 +14,7 @@ abstract class IFavoritesDetailWM {
 
   /// Проверить, находится ли новость в избранном.
   bool isFavorite(NewsItemEntity news);
+  void onNewsPressed(BuildContext context, NewsItemEntity news);
 
   /// [ValueListenable] для отслеживания изменений избранного.
   ValueListenable<List<NewsItemEntity>> get favoritesListenable;
@@ -42,4 +46,9 @@ class FavoritesDetailWM implements IFavoritesDetailWM {
   @override
   ValueListenable<List<NewsItemEntity>> get favoritesListenable =>
       _favoritesRepository.favoritesListenable;
+
+  @override
+  void onNewsPressed(BuildContext context, NewsItemEntity news) {
+    AutoRouter.of(context).push(NewsDetailRouteBuilder(news: news));
+  }
 }

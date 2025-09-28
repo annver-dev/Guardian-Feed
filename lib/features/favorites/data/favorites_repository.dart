@@ -44,13 +44,13 @@ final class FavoritesRepository extends BaseRepository
     );
     currentFavorites.removeWhere((favorite) => favorite.id == news.id);
     _favoritesNotifier.value = currentFavorites;
-    // Обновляем в базе данных
     await _database.toggleFavorite(news.id, false);
   }
 
   @override
   void toggleFavorite(NewsItemEntity news) async {
-    if (isFavorite(news)) {
+    final isCurrentlyFavorite = isFavorite(news);
+    if (isCurrentlyFavorite) {
       removeFavorite(news);
     } else {
       final currentFavorites = List<NewsItemEntity>.from(
@@ -59,13 +59,10 @@ final class FavoritesRepository extends BaseRepository
       currentFavorites.add(news);
       _favoritesNotifier.value = currentFavorites;
 
-      // Проверяем, существует ли запись в базе данных
       final existingNews = await _database.getNewsByApiId(news.id);
       if (existingNews != null) {
-        // Обновляем существующую запись
         await _database.toggleFavorite(news.id, true);
       } else {
-        // Вставляем новую запись
         await _database.insertNews(
           NewsItemEntity(
             id: news.id,
