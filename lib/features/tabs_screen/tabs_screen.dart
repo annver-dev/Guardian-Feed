@@ -38,7 +38,7 @@ class _TabsScreenState extends State<TabsScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
-        type: BottomNavigationBarType.fixed,
+
         backgroundColor: colorTheme.scaffold,
         selectedItemColor: colorTheme.newsHeaderDark,
         unselectedItemColor: colorTheme.inactive,

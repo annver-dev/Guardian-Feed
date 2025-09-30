@@ -22,54 +22,50 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: ValueListenableBuilder<NewsState>(
-          valueListenable: wm.newsStateListenable,
-          builder: (context, news, _) {
-            return RefreshIndicator.adaptive(
-              onRefresh: wm.loadNews,
-              child: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: CustomHeaderDelegate(
-                      minHeight: 60,
-                      maxHeight: 200,
+    return Scaffold(
+      body: ValueListenableBuilder<NewsState>(
+        valueListenable: wm.newsStateListenable,
+        builder: (context, news, _) {
+          return RefreshIndicator.adaptive(
+            onRefresh: wm.loadNews,
+            child: CustomScrollView(
+              slivers: [
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: CustomHeaderDelegate(minHeight: 60, maxHeight: 200),
+                ),
+                switch (news) {
+                  NewsStateLoading() => SliverFillRemaining(
+                    child: Center(child: Text(AppStrings.placesLoading)),
+                  ),
+                  NewsStateFailure(:final failure) => SliverFillRemaining(
+                    child: Center(
+                      child: Text('${AppStrings.placesError}$failure'),
                     ),
                   ),
-                  switch (news) {
-                    NewsStateLoading() => SliverFillRemaining(
-                      child: Center(child: Text(AppStrings.placesLoading)),
-                    ),
-                    NewsStateFailure(:final failure) => SliverFillRemaining(
-                      child: Center(
-                        child: Text('${AppStrings.placesError}$failure'),
-                      ),
-                    ),
-                    NewsStateData(:final news) => SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        final newsItem = news.items[index];
-                        return ValueListenableBuilder(
-                          valueListenable: wm.favoritesListenable,
-                          builder: (context, favorites, child) {
-                            final isFavorite = wm.isFavorite(newsItem);
-                            return PlaceCardWidget(
-                              newsItemEntity: newsItem,
-                              onCardTap: () => wm.onNewsPressed(context, newsItem),
-                              onLikeTap: () => wm.onLikePressed(newsItem),
-                              isFavorite: isFavorite,
-                            );
-                          },
-                        );
-                      }, childCount: news.items.length),
-                    ),
-                  },
-                ],
-              ),
-            );
-          },
-        ),
+                  NewsStateData(:final news) => SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final newsItem = news.items[index];
+                      return ValueListenableBuilder(
+                        valueListenable: wm.favoritesListenable,
+                        builder: (context, favorites, child) {
+                          final isFavorite = wm.isFavorite(newsItem);
+                          return PlaceCardWidget(
+                            newsItemEntity: newsItem,
+                            onCardTap:
+                                () => wm.onNewsPressed(context, newsItem),
+                            onLikeTap: () => wm.onLikePressed(newsItem),
+                            isFavorite: isFavorite,
+                          );
+                        },
+                      );
+                    }, childCount: news.items.length),
+                  ),
+                },
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -116,9 +112,3 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
         maxHeight != oldDelegate.maxHeight;
   }
 }
-
-
-
-
-
-
