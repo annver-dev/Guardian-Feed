@@ -1,4 +1,4 @@
-# 📱 Guardian News App
+# 📱 Guardian Feed
 
 Приложение Flutter для чтения новостей с [guardianapis.com](https://open-platform.theguardian.com/).  
 Поддерживает избранное и поиск по статьям.  
