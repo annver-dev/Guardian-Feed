@@ -45,4 +45,4 @@
 ## 🚀 Запуск
 1. Клонировать репозиторий:
    ```bash
-   git clone https://github.com/username/guardian-news-app.git
+   git clone https://github.com/AnnaVerhovaya/Guardian-Feed.git
