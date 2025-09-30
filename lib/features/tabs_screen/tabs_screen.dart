@@ -32,11 +32,26 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = AppColorTheme.of(context);
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: colorTheme.scaffold,
+        selectedItemColor: colorTheme.newsHeaderDark,
+        unselectedItemColor: colorTheme.inactive,
+        selectedLabelStyle: TextStyle(
+          color: colorTheme.accent,
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: colorTheme.inactive,
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: SvgPictureWidget('assets/icons/news.svg'),
