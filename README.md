@@ -3,11 +3,15 @@
 Приложение на Flutter для чтения новостей с [guardianapis.com](https://open-platform.theguardian.com/).  
 Поддерживает избранное и поиск по статьям.  
 
+### 🎨 Интерфейс приложения
+
 <div align="center">
-  <img src="screenshots/home.png" width="280" style="margin: 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-  <img src="screenshots/details.png" width="280" style="margin: 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-  <img src="screenshots/bookmarks.png" width="280" style="margin: 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-  <img src="screenshots/settings.png" width="280" style="margin: 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
+| Главный экран | Детали | Закладки | Настройки |
+|:-------------:|:------:|:--------:|:---------:|
+| <img src="screenshots/home.png" width="180"> | <img src="screenshots/details.png" width="180"> | <img src="screenshots/bookmarks.png" width="180"> | <img src="screenshots/settings.png" width="180"> |
+| Обзор контента | Подробная информация | Сохраненные элементы | Персонализация |
+
 </div>
 ---
 
