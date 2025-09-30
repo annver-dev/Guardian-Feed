@@ -10,7 +10,7 @@
 | Главный экран | Детали | Закладки | Настройки |
 |:-------------:|:------:|:--------:|:---------:|
 | <img src="screenshots/home.png" width="180"> | <img src="screenshots/details.png" width="180"> | <img src="screenshots/bookmarks.png" width="180"> | <img src="screenshots/settings.png" width="180"> |
-| Обзор контента | Подробная информация | Сохраненные элементы | Персонализация |
+
 
 </div>
 
