@@ -1,12 +1,18 @@
-# 📱 Guardian News App
+# 📱 Guardian Feed
 
-Приложение на Flutter для чтения новостей с [guardianapis.com](https://open-platform.theguardian.com/).  
+Приложение Flutter для чтения новостей с [guardianapis.com](https://open-platform.theguardian.com/).  
 Поддерживает избранное и поиск по статьям.  
 
-![App Screenshot](screenshots/home.png)
-![App Screenshot](screenshots/details.png)
-![App Screenshot](screenshots/bookmarks.png)
-![App Screenshot](screenshots/settings.png)
+### 🎨 Интерфейс приложения
+
+<div align="center">
+
+| Главный экран | Детали | Закладки | Настройки |
+|:-------------:|:------:|:--------:|:---------:|
+| <img src="screenshots/home.png" width="180"> | <img src="screenshots/details.png" width="180"> | <img src="screenshots/bookmarks.png" width="180"> | <img src="screenshots/settings.png" width="180"> |
+| Обзор контента | Подробная информация | Сохраненные элементы | Персонализация |
+
+</div>
 ---
 
 ## ✨ Функционал
@@ -39,4 +45,4 @@
 ## 🚀 Запуск
 1. Клонировать репозиторий:
    ```bash
-   git clone https://github.com/username/guardian-news-app.git
+   git clone https://github.com/AnnaVerhovaya/Guardian-Feed.git
