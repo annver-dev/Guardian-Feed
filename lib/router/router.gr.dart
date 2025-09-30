@@ -11,6 +11,69 @@
 part of 'router.dart';
 
 /// generated route for
+/// [FavoritesScreenBuilder]
+class FavoritesRouteBuilder extends PageRouteInfo<void> {
+  const FavoritesRouteBuilder({List<PageRouteInfo>? children})
+    : super(FavoritesRouteBuilder.name, initialChildren: children);
+
+  static const String name = 'FavoritesRouteBuilder';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FavoritesScreenBuilder();
+    },
+  );
+}
+
+/// generated route for
+/// [NewsDetailScreenBuilder]
+class NewsDetailRouteBuilder extends PageRouteInfo<NewsDetailRouteBuilderArgs> {
+  NewsDetailRouteBuilder({
+    Key? key,
+    required NewsItemEntity news,
+    List<PageRouteInfo>? children,
+  }) : super(
+         NewsDetailRouteBuilder.name,
+         args: NewsDetailRouteBuilderArgs(key: key, news: news),
+         initialChildren: children,
+       );
+
+  static const String name = 'NewsDetailRouteBuilder';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<NewsDetailRouteBuilderArgs>();
+      return NewsDetailScreenBuilder(key: args.key, news: args.news);
+    },
+  );
+}
+
+class NewsDetailRouteBuilderArgs {
+  const NewsDetailRouteBuilderArgs({this.key, required this.news});
+
+  final Key? key;
+
+  final NewsItemEntity news;
+
+  @override
+  String toString() {
+    return 'NewsDetailRouteBuilderArgs{key: $key, news: $news}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! NewsDetailRouteBuilderArgs) return false;
+    return key == other.key && news == other.news;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ news.hashCode;
+}
+
+/// generated route for
 /// [NewsScreen]
 class NewsRoute extends PageRouteInfo<NewsRouteArgs> {
   NewsRoute({required INewsWM wm, Key? key, List<PageRouteInfo>? children})

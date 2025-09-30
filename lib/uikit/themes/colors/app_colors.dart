@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 abstract class AppColors {
   /// Цвета и названия из макета фигмы.
   static const colorWhite = Colors.white;
-  static const colorBackground = Color(0xffF5F5F5);
-  static const colorSecondary = Color(0xff3B3E5B);
+  static const colorBackground = Color(0xff004284);
+  static const colorSecondary = Color(0xff4b94c9);
   static const colorSecondary2 = Color(0xff7C7E92);
   static const colorInactiveBlack = Color.fromRGBO(124, 126, 146, 0.56);
   static const colorPicker = Color(0xFF8CC152);
@@ -28,4 +28,23 @@ abstract class AppColors {
   static const colorBlackError = Color(0xffCF2A2A);
   static const colorBlackDark = Color(0xff1A1A20);
   static const colorBlackMain = Color(0xff21222C);
+
+  static const colorBlue = Color(0xff004284);
+  static const colorBlueLidht = Color(0xff4b94c9);
+
+  // Цвета для дизайна новостей
+  static const colorNewsHeaderDark = Color(
+    0xff004284,
+  ); // Темно-синий для заголовка
+  static const colorNewsHeaderLight = Color(
+    0xff2d3e50,
+  ); // Светлее для градиента
+  static const colorNewsUrgent = Color(
+    0xffE74C3C,
+  ); // Красный для срочных новостей
+  static const colorNewsCardBackground = Color(
+    0xffFFFFFF,
+  ); // Белый фон карточек
+  static const colorNewsText = Color(0xff2C3E50); // Темно-серый для текста
+  static const colorNewsSubtext = Color(0xff7F8C8D); // Серый для подписей
 }

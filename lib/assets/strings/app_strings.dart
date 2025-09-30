@@ -15,7 +15,7 @@ abstract class AppStrings {
 
   /// Список мест.
   static const placesScreenAppBarTitle = 'Последние новости';
-  static const placesScreenBottomNavPlaces = 'Места';
+  static const placesScreenBottomNavPlaces = 'Лента';
   static const placesScreenBottomNavFavorites = 'Избранное';
   static const placesScreenBottomNavSettings = 'Настройки';
 

@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:places_search/assets/strings/app_strings.dart';
+import 'package:places_search/features/favorites/ui/favorites_screen_builder.dart';
 import 'package:places_search/features/news/ui/screens/news_screen_builder.dart';
+import 'package:places_search/features/settings/ui/settings_screen_builder.dart';
 import 'package:places_search/uikit/images/svg_picture_widget.dart';
+import 'package:places_search/uikit/themes/colors/app_color_theme.dart';
 
 @RoutePage()
 class TabsScreen extends StatefulWidget {
@@ -17,8 +20,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   final List<Widget> _pages = [
     const NewsScreenBuilder(),
-    const Center(child: Text(AppStrings.favoritesStub)),
-    const Center(child: Text(AppStrings.settingsStub)),
+    const FavoritesScreenBuilder(),
+    const SettingsScreenBuilder(),
   ];
 
   void _onTabTapped(int index) {
@@ -36,8 +39,8 @@ class _TabsScreenState extends State<TabsScreen> {
         onTap: _onTabTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: SvgPictureWidget('assets/icons/list.svg'),
-            activeIcon: SvgPictureWidget('assets/icons/list_full.svg'),
+            icon: SvgPictureWidget('assets/icons/news.svg'),
+            activeIcon: SvgPictureWidget('assets/icons/news.svg'),
             label: AppStrings.placesScreenBottomNavPlaces,
           ),
           BottomNavigationBarItem(

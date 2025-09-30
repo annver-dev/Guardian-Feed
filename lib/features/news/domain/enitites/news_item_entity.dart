@@ -1,3 +1,5 @@
+import 'package:places_search/core/db/database.dart';
+import 'package:places_search/core/db/tables.dart';
 import 'package:places_search/features/news/domain/enitites/news_fields_entity.dart';
 
 class NewsItemEntity {
@@ -31,7 +33,6 @@ class NewsItemEntity {
     this.isFavorite = false,
   });
 
-  /// Создает копию объекта с измененными полями
   NewsItemEntity copyWith({
     String? id,
     String? type,

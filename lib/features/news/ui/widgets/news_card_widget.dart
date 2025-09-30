@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places_search/features/common/logic/format_date.dart';
+import 'package:places_search/features/common/logic/get_section_color.dart';
 import 'package:places_search/features/news/domain/enitites/news_item_entity.dart';
+import 'package:places_search/uikit/buttons/bookmark_button.dart';
 import 'package:places_search/uikit/themes/colors/app_color_theme.dart';
 import 'package:places_search/uikit/themes/text/app_text_theme.dart';
 
@@ -22,140 +25,135 @@ class PlaceCardWidget extends StatelessWidget {
     super.key,
   });
 
-  String _formatDate(DateTime date) {
-    final now = DateTime.now();
-    final difference = now.difference(date);
-    if (difference.inDays > 0) {
-      return '${difference.inDays} дн. назад';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours} ч. назад';
-    } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} мин. назад';
-    } else {
-      return 'Только что';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    var _cardHeight = MediaQuery.of(context).size.height * 0.25;
-    var _imageHeight = _cardHeight * 0.45;
+    var cardHeight = MediaQuery.of(context).size.height * 0.15;
+    var imageWidth = cardHeight * 1.2;
     final colorTheme = AppColorTheme.of(context);
     final textTheme = AppTextTheme.of(context);
 
-    return SizedBox(
-      height: _cardHeight,
-      child: Material(
-        color: colorTheme.surface,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-        clipBehavior: Clip.antiAlias,
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: _imageHeight,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(12),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: _imageHeight,
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            newsItemEntity.fields!.thumbnail!,
-                            fit: BoxFit.cover,
-                            errorBuilder:
-                                (_, __, ___) => Container(
-                                  color: colorTheme.surface,
-                                  child: const Center(
-                                    child: Icon(Icons.image_not_supported),
-                                  ),
-                                ),
-                          ),
-                        ),
+    return InkWell(
+      onTap: onCardTap,
+      child: Container(
+        height: cardHeight,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Material(
+          color: colorTheme.newsCardBackground,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          clipBehavior: Clip.antiAlias,
+          elevation: 2,
+
+          child: Stack(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    width: imageWidth,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.horizontal(
+                        left: Radius.circular(16),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: colorTheme.inactive,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  child: Text(
-                                    newsItemEntity.sectionName,
-                                    style: textTheme.smallBold,
-                                  ),
+                      child:
+                          (newsItemEntity.fields?.thumbnail != null &&
+                                  newsItemEntity.fields!.thumbnail!.isNotEmpty)
+                              ? Image.network(
+                                newsItemEntity.fields!.thumbnail!,
+                                fit: BoxFit.cover,
+                                errorBuilder:
+                                    (_, __, ___) => Container(
+                                      color: colorTheme.surface,
+                                      child: const Center(
+                                        child: Icon(Icons.image_not_supported),
+                                      ),
+                                    ),
+                              )
+                              : Container(
+                                color: colorTheme.surface,
+                                child: const Center(
+                                  child: Icon(Icons.image_not_supported),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              newsItemEntity.title,
-                              style: textTheme.textMedium,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.watch_later,
-
-                                  color: colorTheme.inactive,
-                                ),
-                                SizedBox(width: 6),
-                                Text(
-                                  style: textTheme.small,
-                                  _formatDate(newsItemEntity.publicationDate),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Positioned.fill(
-              child: Material(
-                type: MaterialType.transparency,
-                child: InkWell(onTap: onCardTap),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Категория новости
+                          Container(
+                            decoration: BoxDecoration(
+                              color: getSectionColor(
+                                newsItemEntity.sectionName,
+                                context,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: colorTheme.inactive,
+                                width: 1,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            child: Text(
+                              newsItemEntity.sectionName,
+                              style: textTheme.smallBold.copyWith(
+                                color: colorTheme.neutralWhite,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Expanded(
+                            child: Text(
+                              newsItemEntity.title,
+                              style: textTheme.textMedium.copyWith(
+                                color: colorTheme.newsText,
+                                fontWeight: FontWeight.w600,
+                                height: 1.3,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                size: 14,
+                                color: colorTheme.newsSubtext,
+                              ),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  formatDate(newsItemEntity.publicationDate),
+                                  style: textTheme.small.copyWith(
+                                    color: colorTheme.newsSubtext,
+                                    fontSize: 12,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: onLikeTap,
+                                child: BookmarkButton(isFavorite: isFavorite),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Positioned(
-              top: 8,
-              right: 16,
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-
-                onTap: onLikeTap,
-                child: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color:
-                      isFavorite ? colorTheme.error : colorTheme.neutralWhite,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
