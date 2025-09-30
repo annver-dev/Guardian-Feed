@@ -3,9 +3,10 @@
 Приложение на Flutter для чтения новостей с [guardianapis.com](https://open-platform.theguardian.com/).  
 Поддерживает избранное и поиск по статьям.  
 
-![<img width="392" height="796" alt="image" src="https://github.com/user-attachments/assets/f3b49293-a671-4bcb-948b-ce2c509e0bc5" />
-](screenshots/home.png)
-
+![App Screenshot](screenshots/home.png)
+![App Screenshot](screenshots/details.png)
+![App Screenshot](screenshots/bookmarks.png)
+![App Screenshot](screenshots/settings.png)
 ---
 
 ## ✨ Функционал
