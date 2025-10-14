@@ -30,7 +30,7 @@ class ThemeRepository extends ChangeNotifier implements IThemeRepository {
   Future<void> setThemeMode(ThemeMode themeMode) async {
     _themeModeNotifier.value = themeMode;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_themeKey, themeMode.name);
+    await prefs.setInt(_themeKey, themeMode.index);
     notifyListeners();
   }
 
